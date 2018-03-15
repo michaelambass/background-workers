@@ -1,5 +1,5 @@
 <?php 
-require 'src/BackgroundWorkers/BackgroundWorkers.php';
+require 'vendor/autoload.php';
 use \BackgroundWorkers\BackgroundWorkers;
 
 BackgroundWorkers::queue();

@@ -1,0 +1,19 @@
+{
+    "name": "michael/background-workers",
+    "description": "An easy way to create PHP background jobs",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Michael Ambass",
+            "email": "michael.ambass@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-0": {
+            "BackgroundWorkers": "src/"
+        }
+    }
+}

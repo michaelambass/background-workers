@@ -29,7 +29,7 @@ class BackgroundWorkers
 
     public static function init(array $config = array())
     {
-
+        
         // set config
         self::setConfiguration($config);
     }
