@@ -14,23 +14,44 @@ namespace BackgroundWorkers;
 
 class BackgroundWorkers{
 
-    // config store 
-    static $config;
+    // default and state configuration
+    static $config = array(
+        'path_queue' => 'queue',
+        'path_jobs' => 'jobs' 
+    );
 
+    
     /**
-     * initialization 
+     * class initialization
      *
-     * @return void
+     * @param Array $config
      */
-
+    
     static public function init(Array $config = array()){
 
-        // set config vars
-        self::$config = $config;
+        // set config
+        self::setConfiguration($config);
 
     }
 
-    
+    /**
+     * set configuration parameters
+     *
+     * @param Array $config
+     */
+
+    static public function setConfiguration(Array $config){
+
+        // loop each new config 
+        foreach($config as $parameter => $value){
+
+            // set the config parameter 
+            if(isset(self::$config[$parameter])){
+                self::$config[$parameter] = $value;
+            }
+        }
+    }
+
 }
 
 // errors display for plugin creation
