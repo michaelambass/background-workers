@@ -1,5 +1,5 @@
 <?php 
-require 'BackgroundWorkers.php';
+require 'src/BackgroundWorkers/BackgroundWorkers.php';
 use \BackgroundWorkers\BackgroundWorkers;
 
 // errors display for plugin creation
