@@ -17,7 +17,7 @@ class BackgroundWorkers
 
     // default and state configuration
     public static $config = array(
-        'path_queue' => 'queue'
+        'path_queue' => 'queues'
     );
 
     
