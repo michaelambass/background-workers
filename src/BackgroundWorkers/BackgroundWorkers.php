@@ -58,11 +58,11 @@ class BackgroundWorkers
     }
 
     /**
-     * set a task
+     * set a task in queue
      *
-     * @param [type] $name
-     * @param [type] $params
-     * @param integer $delay
+     * @param string $name  name of the task to be executed
+     * @param resource $params  datas to send to the task
+     * @param integer $delay    delay before task execution
      * @return void
      */
     public static function setTask($name, $params, $delay = 0)
