@@ -68,6 +68,11 @@ class BackgroundWorkers
      */
     public static function setTask($name, $params, $delay = 0)
     {
+        // generate the delay to execute
+        $time = time() + $delay;
+
+        // register the task
+        self::registerTask($name, $time);
 
     }
 
@@ -82,4 +87,10 @@ class BackgroundWorkers
     public static function fromSchedule($time, $path)
     {
     }
+
+    static public function registerTask($name, $time){
+
+        
+    }
+
 }
