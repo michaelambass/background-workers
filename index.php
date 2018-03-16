@@ -17,7 +17,7 @@ $object = new \StdClass();
 BackgroundWorkers::setHook('test', $object);
 
 // BackgroundWorkers::queue();
-// BackgroundWorkers::setHook('NAME', array('param' => 'value'));
+// BackgroundWorkers::setHook('NAME', array('param' => 'value'), $delay);
 // BackgroundWorkers::setSchedule(time, 'NAME', array('param' => 'value'));
 // BackgroundWorkers::fromHook('NAME', 'path');
 // BackgroundWorkers::fromSchedule(time, 'path');

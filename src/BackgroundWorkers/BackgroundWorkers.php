@@ -57,7 +57,7 @@ class BackgroundWorkers
     {
     }
 
-    public static function setHook($name, $params)
+    public static function setHook($name, $params, $delay = 0)
     {
     }
 
