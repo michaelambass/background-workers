@@ -58,42 +58,39 @@ class BackgroundWorkers
     {
         try {
                         
-            // queue path not found 
+            // queue path not found
             if (!self::queuePathExist(self::$config['path_queue'])) {
                 throw new \Exception('Queue path not reachable');
             }
 
-            // get files from folder 
+            // get files from folder
             $files = scandir(self::$config['path_queue']);
 
             // loop each file
-            foreach($files as $file){
+            foreach ($files as $file) {
                 if ($file !== '.' && $file !== '..') {
 
-                    // decompose file 
+                    // decompose file
                     $file_parts = explode('-', $file);
 
                     // decomposed part undefined
-                    if(!isset($file_parts[0])){
+                    if (!isset($file_parts[0])) {
                         throw new \Exception('Queue filename is incorrect');
                     }
 
-                    if(!isset($file_parts[1])){
+                    if (!isset($file_parts[1])) {
                         throw new \Exception('Queue filename is incorrect');
                     }
 
-                    // execute based on execution time 
-                    if(intval($file_parts[0]) <= time()){
+                    // execute based on execution time
+                    if (intval($file_parts[0]) <= time()) {
                         echo 'Executed';
-                    }                    
+                    }
                 }
             }
-
-
-        } catch(Exception $e){
+        } catch (Exception $e) {
             return $e->getMessage();
         }
-
     }
 
     /**
@@ -168,20 +165,18 @@ class BackgroundWorkers
             $queue_path = $queue_path + uniqid();
         }
 
-        try{
+        try {
 
-            // path_queue exist 
-            if(!file_exists(self::$config['path_queue'])){
+            // path_queue exist
+            if (!file_exists(self::$config['path_queue'])) {
                 throw new \Exception('Queue folder not reachable');
             }
 
             // create file
             return file_put_contents($queue_path, $serialized_params);
-
-        } catch(Exception $e){
+        } catch (Exception $e) {
             return $e->getMessage();
         }
-        
     }
 
     /**
