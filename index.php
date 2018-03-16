@@ -14,10 +14,10 @@ BackgroundWorkers::init(array());
 $object = new \StdClass();
 
 // set a queue
-BackgroundWorkers::setHook('test', $object);
+BackgroundWorkers::setTask('test', $object);
 
 // BackgroundWorkers::queue();
-// BackgroundWorkers::setHook('NAME', array('param' => 'value'), $delay);
+// BackgroundWorkers::setTask('NAME', array('param' => 'value'), $delay);
 // BackgroundWorkers::setSchedule(time, 'NAME', array('param' => 'value'));
 // BackgroundWorkers::fromHook('NAME', 'path');
 // BackgroundWorkers::fromSchedule(time, 'path');

@@ -57,8 +57,17 @@ class BackgroundWorkers
     {
     }
 
-    public static function setHook($name, $params, $delay = 0)
+    /**
+     * set a task
+     *
+     * @param [type] $name
+     * @param [type] $params
+     * @param integer $delay
+     * @return void
+     */
+    public static function setTask($name, $params, $delay = 0)
     {
+
     }
 
     public static function setSchedule($time, $name, $params)
