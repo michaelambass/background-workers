@@ -56,6 +56,44 @@ class BackgroundWorkers
 
     public static function queue()
     {
+        try {
+                        
+            // queue path not found 
+            if (!self::queuePathExist(self::$config['path_queue'])) {
+                throw new \Exception('Queue path not reachable');
+            }
+
+            // get files from folder 
+            $files = scandir(self::$config['path_queue']);
+
+            // loop each file
+            foreach($files as $file){
+                if ($file !== '.' && $file !== '..') {
+
+                    // decompose file 
+                    $file_parts = explode('-', $file);
+
+                    // decomposed part undefined
+                    if(!isset($file_parts[0])){
+                        throw new \Exception('Queue filename is incorrect');
+                    }
+
+                    if(!isset($file_parts[1])){
+                        throw new \Exception('Queue filename is incorrect');
+                    }
+
+                    // execute based on execution time 
+                    if(intval($file_parts[0]) <= time()){
+                        echo 'Executed';
+                    }                    
+                }
+            }
+
+
+        } catch(Exception $e){
+            return $e->getMessage();
+        }
+
     }
 
     /**
@@ -92,12 +130,12 @@ class BackgroundWorkers
         try {
             // task file not found
             if (self::taskExist($task_name)) {
-                throw new Exception('Task file not found');
+                throw new \Exception('Task file not found');
             }
             
             // time for schedule is in the past
             if ($time < time()) {
-                throw new Exception('Task schedule must be in future');
+                throw new \Exception('Task schedule must be in future');
             }
 
             // serialize the params
@@ -134,7 +172,7 @@ class BackgroundWorkers
 
             // path_queue exist 
             if(!file_exists(self::$config['path_queue'])){
-                throw new Exception('Queue folder not reachable');
+                throw new \Exception('Queue folder not reachable');
             }
 
             // create file
