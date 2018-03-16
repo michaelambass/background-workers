@@ -18,7 +18,7 @@ class BackgroundWorkers
     // default and state configuration
     public static $config = array(
         'path_tasks' => 'tasks',
-        'path_queue' => 'tasks/queues',        
+        'path_queue' => 'tasks/queues',
     );
 
     
@@ -72,8 +72,7 @@ class BackgroundWorkers
         $time = time() + $delay;
 
         // register the task
-        self::registerTask($name, $time);
-
+        self::registerTask($name, $params, $time);
     }
 
     public static function setSchedule($time, $name, $params)
@@ -88,9 +87,106 @@ class BackgroundWorkers
     {
     }
 
-    static public function registerTask($name, $time){
+    public static function registerTask($task_name, $params, $time)
+    {
+        try {
+            // task file not found
+            if (self::taskExist($task_name)) {
+                throw new Exception('Task file not found');
+            }
+            
+            // time for schedule is in the past
+            if ($time < time()) {
+                throw new Exception('Task schedule must be in future');
+            }
 
+            // serialize the params
+            $serialized_params = serialize($params);
+
+            // create the queue file
+            self::registerQueue($task_name, $serialized_params, $time);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    /**
+     * register queue file in queue folder
+     *
+     * @param string $task
+     * @param resource $serialized_params
+     * @param int $time
+     * @return bool
+     */
+    
+    public static function registerQueue($task, $serialized_params, $time)
+    {
+
+        // generate the queue path
+        $queue_path = self::$config['path_queue'].'/'.$time.'-'.self::taskNameFormatting($task).'.php';
+
+        // check if queue path already exist
+        if (self::queuePathExist($queue_path)) {
+            $queue_path = $queue_path + uniqid();
+        }
+
+        try{
+
+            // path_queue exist 
+            if(!file_exists(self::$config['path_queue'])){
+                throw new Exception('Queue folder not reachable');
+            }
+
+            // create file
+            return file_put_contents($queue_path, $serialized_params);
+
+        } catch(Exception $e){
+            return $e->getMessage();
+        }
         
     }
 
+    /**
+     * check if queue path already exist
+     *
+     * @param string $path
+     * @return bool
+     */
+
+    public static function queuePathExist($path)
+    {
+        return (file_exists($path));
+    }
+
+    /**
+     * formatting the task name to match in any case
+     *
+     * @param string $name
+     * @return string
+     */
+
+    public static function taskNameFormatting($name)
+    {
+        return trim(str_replace(' ', '', strtolower($name)));
+    }
+
+    /**
+     * check if the task exist
+     *
+     * @param string $name
+     * @return bool
+     */
+
+    public static function taskExist($name)
+    {
+
+        // formatting task name
+        $task = self::taskNameFormatting($name);
+
+        // task path
+        $task_path = self::$config['path_tasks'].'/'.$task;
+
+        // check if task file exist
+        return file_exists($task_path);
+    }
 }
