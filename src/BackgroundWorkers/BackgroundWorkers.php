@@ -19,6 +19,7 @@ class BackgroundWorkers
     public static $config = array(
         'path_tasks' => 'tasks',
         'path_queue' => 'tasks/queues',
+        'uri_tasks' => 'http://localhost:8888/background-workers/'
     );
 
     
@@ -84,6 +85,19 @@ class BackgroundWorkers
 
                     // execute based on execution time
                     if (intval($file_parts[0]) <= time()) {
+
+                        // get the file content 
+                        $uri_task = (isset(self::$config['uri_task'])) ? self::$config['uri_task'] : false;
+
+                        if(!$uri_task){
+                            throw new \Exception('URI task not found');
+                        }
+
+                        // task content 
+                        
+
+                        $ch = curl_init();
+                        
                         //unlink(self::$config['path_queue'].'/'.$file);
                         echo 'Executed';
                     }

@@ -7,5 +7,6 @@ use \BackgroundWorkers\Task;
  */
 $task = new Task('test');
 
+
 // task executed
 $task->executed();
