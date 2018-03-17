@@ -84,6 +84,7 @@ class BackgroundWorkers
 
                     // execute based on execution time
                     if (intval($file_parts[0]) <= time()) {
+                        //unlink(self::$config['path_queue'].'/'.$file);
                         echo 'Executed';
                     }
                 }

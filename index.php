@@ -14,7 +14,7 @@ BackgroundWorkers::init(array());
 $object = new \StdClass();
 
 // set a queue
-//BackgroundWorkers::setTask('test', $object);
+// BackgroundWorkers::setTask('test', $object);
 
 // BackgroundWorkers::queue();
 // BackgroundWorkers::setTask('NAME', array('param' => 'value'), $delay);
