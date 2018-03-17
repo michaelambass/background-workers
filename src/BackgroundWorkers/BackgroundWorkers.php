@@ -99,28 +99,26 @@ class BackgroundWorkers
                         // task content 
                         $task_content = file_get_contents(self::$config['path_queue'].'/'.$file);
 
+                        // Note : To improve with multi curl instance
+
                         $ch = curl_init();
                         $url = $uri_task.'/'.self::$config['path_tasks'].'/'.$task_name.'.php';
 
-                        echo '<pre>'.print_r($task_content, true).'</prE>';
-                        echo '<pre>'.print_r($url, true).'</prE>';
-
                         //set the url, number of POST vars, POST data
                         curl_setopt($ch,CURLOPT_URL, $url);
-                        curl_setopt($ch,CURLOPT_POST, 1);
-                        curl_setopt($ch,CURLOPT_POSTFIELDS, array('datas' => $task_content));
+                        curl_setopt($ch,CURLOPT_POST, 2);
+                        curl_setopt($ch,CURLOPT_POSTFIELDS, array('datas' => $task_content, 'queue_name' => $file));
 
                         //execute post
                         $result = curl_exec($ch);
 
                         //close connection
                         curl_close($ch);
-
-                        //unlink(self::$config['path_queue'].'/'.$file);
                         
                     }
                 }
             }
+
         } catch (Exception $e) {
             return $e->getMessage();
         }

@@ -4,11 +4,17 @@ use \BackgroundWorkers\Task;
 
 /**
  * Demo task 
+ * 
+ * @description     Task description
  */
+
+// instanciate the task 
 $task = new Task('test');
 
-error_log('executed test.php');
+// getting datas 
+$datas = $task->datas;
 
+// insert your code here...
 
 // task executed
 $task->executed();
