@@ -7,6 +7,8 @@ use \BackgroundWorkers\Task;
  */
 $task = new Task('test');
 
+error_log('executed test.php');
+
 
 // task executed
 $task->executed();

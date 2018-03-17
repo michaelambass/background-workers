@@ -19,7 +19,7 @@ class BackgroundWorkers
     public static $config = array(
         'path_tasks' => 'tasks',
         'path_queue' => 'tasks/queues',
-        'uri_tasks' => 'http://localhost:8888/background-workers/'
+        'uri_tasks' => 'http://localhost:8888/background-workers'
     );
 
     
@@ -87,19 +87,37 @@ class BackgroundWorkers
                     if (intval($file_parts[0]) <= time()) {
 
                         // get the file content 
-                        $uri_task = (isset(self::$config['uri_task'])) ? self::$config['uri_task'] : false;
+                        $uri_task = (isset(self::$config['uri_tasks'])) ? self::$config['uri_tasks'] : false;
 
                         if(!$uri_task){
                             throw new \Exception('URI task not found');
                         }
 
-                        // task content 
+                        // get the task name 
+                        $task_name = str_replace('.php', '', $file_parts[1]);
                         
+                        // task content 
+                        $task_content = file_get_contents(self::$config['path_queue'].'/'.$file);
 
                         $ch = curl_init();
-                        
+                        $url = $uri_task.'/'.self::$config['path_tasks'].'/'.$task_name.'.php';
+
+                        echo '<pre>'.print_r($task_content, true).'</prE>';
+                        echo '<pre>'.print_r($url, true).'</prE>';
+
+                        //set the url, number of POST vars, POST data
+                        curl_setopt($ch,CURLOPT_URL, $url);
+                        curl_setopt($ch,CURLOPT_POST, 1);
+                        curl_setopt($ch,CURLOPT_POSTFIELDS, array('datas' => $task_content));
+
+                        //execute post
+                        $result = curl_exec($ch);
+
+                        //close connection
+                        curl_close($ch);
+
                         //unlink(self::$config['path_queue'].'/'.$file);
-                        echo 'Executed';
+                        
                     }
                 }
             }
