@@ -86,17 +86,17 @@ class BackgroundWorkers
                     // execute based on execution time
                     if (intval($file_parts[0]) <= time()) {
 
-                        // get the file content 
+                        // get the file content
                         $uri_task = (isset(self::$config['uri_tasks'])) ? self::$config['uri_tasks'] : false;
 
-                        if(!$uri_task){
+                        if (!$uri_task) {
                             throw new \Exception('URI task not found');
                         }
 
-                        // get the task name 
+                        // get the task name
                         $task_name = str_replace('.php', '', $file_parts[1]);
                         
-                        // task content 
+                        // task content
                         $task_content = file_get_contents(self::$config['path_queue'].'/'.$file);
 
                         // Note : To improve with multi curl instance
@@ -105,20 +105,18 @@ class BackgroundWorkers
                         $url = $uri_task.'/'.self::$config['path_tasks'].'/'.$task_name.'.php';
 
                         //set the url, number of POST vars, POST data
-                        curl_setopt($ch,CURLOPT_URL, $url);
-                        curl_setopt($ch,CURLOPT_POST, 2);
-                        curl_setopt($ch,CURLOPT_POSTFIELDS, array('datas' => $task_content, 'queue_name' => $file));
+                        curl_setopt($ch, CURLOPT_URL, $url);
+                        curl_setopt($ch, CURLOPT_POST, 2);
+                        curl_setopt($ch, CURLOPT_POSTFIELDS, array('datas' => $task_content, 'queue_name' => $file));
 
                         //execute post
                         $result = curl_exec($ch);
 
                         //close connection
                         curl_close($ch);
-                        
                     }
                 }
             }
-
         } catch (Exception $e) {
             return $e->getMessage();
         }

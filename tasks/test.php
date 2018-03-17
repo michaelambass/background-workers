@@ -3,15 +3,15 @@ require '../vendor/autoload.php';
 use \BackgroundWorkers\Task;
 
 /**
- * Demo task 
- * 
+ * Demo task
+ *
  * @description     Task description
  */
 
-// instanciate the task 
+// instanciate the task
 $task = new Task('test');
 
-// getting datas 
+// getting datas
 $datas = $task->datas;
 
 // insert your code here...
