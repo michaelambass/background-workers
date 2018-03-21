@@ -21,7 +21,6 @@ class BackgroundWorkers
         'path_queue' => 'tasks/queues',
         'uri_tasks' => 'http://localhost:8888/background-workers'
     );
-
     
     /**
      * class initialization
@@ -130,6 +129,7 @@ class BackgroundWorkers
      * @param integer $delay    delay before task execution
      * @return void
      */
+
     public static function setTask($name, $params, $delay = 0)
     {
         // generate the delay to execute
@@ -139,17 +139,28 @@ class BackgroundWorkers
         self::registerTask($name, $params, $time);
     }
 
-    public static function setSchedule($time, $name, $params)
+    /**
+     * set a task in the queue for a schedule time 
+     *
+     * @param string $name
+     * @param resource $params
+     * @param int $time
+     * @return void
+     */
+
+    public static function setTaskSchedule($name, $params, $time)
     {
+        self::registerTask($name, $params, $time);
     }
 
-    public static function fromHook($name, $path)
-    {
-    }
-
-    public static function fromSchedule($time, $path)
-    {
-    }
+    /**
+     * register a task
+     *
+     * @param string $task_name
+     * @param resource $params
+     * @param int $time
+     * @return void
+     */
 
     public static function registerTask($task_name, $params, $time)
     {
@@ -169,6 +180,7 @@ class BackgroundWorkers
 
             // create the queue file
             self::registerQueue($task_name, $serialized_params, $time);
+
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -251,4 +263,5 @@ class BackgroundWorkers
         // check if task file exist
         return file_exists($task_path);
     }
+
 }
