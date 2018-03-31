@@ -25,7 +25,7 @@ class Task
      * @param string $name
      * @return void
      */
-    public function __constructor($name)
+    public function __construct($name)
     {
         $this->name = $name;
         $this->datas = (isset($_POST['datas'])) ? $_POST['datas'] : false;
