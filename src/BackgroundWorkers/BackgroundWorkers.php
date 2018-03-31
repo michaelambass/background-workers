@@ -101,7 +101,7 @@ class BackgroundWorkers
                         // Note : To improve with multi curl instance
 
                         $ch = curl_init();
-                        $url = $uri_task.'/'.self::$config['path_tasks'].'/'.$task_name.'.php';
+                        $url = $uri_task.'/'.$task_name;
 
                         //set the url, number of POST vars, POST data
                         curl_setopt($ch, CURLOPT_URL, $url);
