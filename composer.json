@@ -1,5 +1,5 @@
 {
-    "name": "michael/background-workers",
+    "name": "michaelambass/background-workers",
     "description": "An easy way to create PHP background jobs",
     "type": "library",
     "license": "MIT",
@@ -9,7 +9,7 @@
             "email": "michael.ambass@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "require": {},
     "autoload": {
         "psr-0": {
