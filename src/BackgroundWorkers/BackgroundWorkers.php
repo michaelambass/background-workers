@@ -68,7 +68,7 @@ class BackgroundWorkers
 
             // loop each file
             foreach ($files as $file) {
-                if ($file !== '.' && $file !== '..') {
+                if ($file !== '.' && $file !== '..' && $file !== '.DS_Store') {
 
                     // decompose file
                     $file_parts = explode('-', $file);
