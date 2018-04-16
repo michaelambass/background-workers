@@ -43,9 +43,7 @@ class Task
 
         // generate task file path 
         $taskPath = \BackgroundWorkers\BackgroundWorkers::$config['path_queue'].'/'.$this->queue;
-        
-        echo $taskPath;
-        
+                
         try{
 
             // check if the file path exist 
