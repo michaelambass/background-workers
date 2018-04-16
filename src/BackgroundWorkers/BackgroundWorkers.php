@@ -33,6 +33,7 @@ class BackgroundWorkers
         
         // set config
         self::setConfiguration($config);
+
     }
 
     /**
@@ -101,8 +102,9 @@ class BackgroundWorkers
                         // Note : To improve with multi curl instance
 
                         $ch = curl_init();
-                        $url = $uri_task.'/'.$task_name;
+                        $url = $uri_task.'/'.$task_name.'/test.php';
 
+                        
                         //set the url, number of POST vars, POST data
                         curl_setopt($ch, CURLOPT_URL, $url);
                         curl_setopt($ch, CURLOPT_POST, 2);
@@ -203,7 +205,10 @@ class BackgroundWorkers
 
         // check if queue path already exist
         if (self::queuePathExist($queue_path)) {
-            $queue_path = $queue_path + uniqid();
+            
+            $queue_path_without_extension = str_replace('.php', '', $queue_path);
+            $queue_path = $queue_path_without_extension .'-'. uniqid().'.php';
+
         }
 
         try {

@@ -1,3 +1,6 @@
 .DS_Store
 /vendor/
 /tasks/queues/*
+/index.php
+/queue.php
+/tasks/test.php

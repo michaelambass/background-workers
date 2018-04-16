@@ -1,5 +1,6 @@
 <?php 
-require 'vendor/autoload.php';
+require 'src/BackgroundWorkers/BackgroundWorkers.php';
+require 'src/BackgroundWorkers/Task.php';
 use \BackgroundWorkers\BackgroundWorkers;
 
 // set the destination
